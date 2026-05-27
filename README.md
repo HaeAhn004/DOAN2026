@@ -46,7 +46,7 @@ Phân bố biến mục tiêu:
 
 # CÀI ĐẶT THƯ VIỆN
 
-  requirements.txt:
+    requirements.txt:
     pandas>=1.3.0
     numpy>=1.21.0
     scikit-learn>=1.0.0
