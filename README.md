@@ -1,6 +1,6 @@
-  ## PHÂN TÍCH CÁC YẾU TỐ ẢNH HƯỞNG VÀ ỨNG DỤNG HỌC MÁY TRONG DỰ ĐOÁN HÀNH VI KHÁM SỨC KHỎE CHỦ ĐỘNG
-
- # TỔNG QUAN DỰ ÁN
+  # PHÂN TÍCH CÁC YẾU TỐ ẢNH HƯỞNG VÀ ỨNG DỤNG HỌC MÁY TRONG DỰ ĐOÁN HÀNH VI KHÁM SỨC KHỎE CHỦ ĐỘNG
+ 
+ ## TỔNG QUAN DỰ ÁN
 Mục tiêu:
    - Nhận diện các rào cản (tâm lý, kinh tế, thời gian, chất lượng dịch vụ) khiến người dân trì hoãn khám sức khỏe định kỳ
     
@@ -14,7 +14,7 @@ Bài toán: Binary Classification
     
    - Nhãn 1: Trì hoãn khám/Nguy cơ cao
 
-# THÔNG TIN DỮ LIỆU
+## THÔNG TIN DỮ LIỆU
 
 Nguồn dữ liệu: Vietnam Health Survey (Carnegie Mellon University)
 
@@ -43,7 +43,7 @@ Phân bố biến mục tiêu:
    - Nhãn 1 (Trì hoãn khám): 791 mẫu (38.2%)
 
 
-# CÀI ĐẶT THƯ VIỆN
+## CÀI ĐẶT THƯ VIỆN
 
     requirements.txt:
     pandas>=1.3.0
@@ -56,7 +56,7 @@ Phân bố biến mục tiêu:
     imbalanced-learn>=0.8.0
     joblib>=1.1.0
 
-# TIỀN XỬ LÝ DỮ LIỆU
+## TIỀN XỬ LÝ DỮ LIỆU
 
 
     import pandas as pd
@@ -105,7 +105,7 @@ Phân bố biến mục tiêu:
     
     return X_train, X_test, y_train, y_test
 
-# KẾT QUẢ PHÂN TÍCH EDA (11 BƯỚC) - TÓM TẮT
+## KẾT QUẢ PHÂN TÍCH EDA (11 BƯỚC) - TÓM TẮT
 
     eda_insights = {
     "Bước_1_Nhân_khẩu_học": {
@@ -161,7 +161,7 @@ Phân bố biến mục tiêu:
     }
 }
 
-# HUẤN LUYỆN CÁC MÔ HÌNH
+## HUẤN LUYỆN CÁC MÔ HÌNH
 
     from sklearn.linear_model import LogisticRegression
     from sklearn.ensemble import RandomForestClassifier
@@ -169,13 +169,13 @@ Phân bố biến mục tiêu:
     from lightgbm import LGBMClassifier
     from sklearn.model_selection import GridSearchCV
 
-# 1. Logistic Regression - Baseline
+## 1. Logistic Regression - Baseline
     def train_logistic_regression(X_train, y_train):
     model = LogisticRegression(max_iter=1000, random_state=42)
     model.fit(X_train, y_train)
     return model
 
-# 2. XGBoost
+## 2. XGBoost
     def train_xgboost(X_train, y_train):
     model = XGBClassifier(
         use_label_encoder=False,
@@ -185,13 +185,13 @@ Phân bố biến mục tiêu:
     model.fit(X_train, y_train)
     return model
 
-# 3. LightGBM
+## 3. LightGBM
     def train_lightgbm(X_train, y_train):
     model = LGBMClassifier(random_state=42, verbose=-1)
     model.fit(X_train, y_train)
     return model
 
-# 4. Random Forest với GridSearchCV (MÔ HÌNH TỐT NHẤT)
+## 4. Random Forest với GridSearchCV (MÔ HÌNH TỐT NHẤT)
     def train_random_forest_optimized(X_train, y_train):
     param_grid = {
         'n_estimators': [100, 200, 300],
@@ -210,7 +210,7 @@ Phân bố biến mục tiêu:
     print(f"Best parameters: {grid_search.best_params_}")
     return grid_search.best_estimator_
 
-# ĐÁNH GIÁ MÔ HÌNH VỚI THRESHOLD TÙY CHỈNH
+## ĐÁNH GIÁ MÔ HÌNH VỚI THRESHOLD TÙY CHỈNH
 
     def evaluate_with_threshold(model, X_test, y_test, threshold=0.5):
     """Đánh giá mô hình với ngưỡng phân lớp tùy chỉnh"""
@@ -233,7 +233,7 @@ Phân bố biến mục tiêu:
         'threshold_used': threshold
     }
 
-# KẾT QUẢ MÔ HÌNH RANDOM FOREST (THRESHOLD = 0.4)
+## KẾT QUẢ MÔ HÌNH RANDOM FOREST (THRESHOLD = 0.4)
 
     random_forest_results = {
     "best_params": {
@@ -258,7 +258,7 @@ Phân bố biến mục tiêu:
     }
 }
 
-# SO SÁNH HIỆU SUẤT CÁC MÔ HÌNH
+## SO SÁNH HIỆU SUẤT CÁC MÔ HÌNH
     model_comparison = {
     "Logistic_Regression": {
         "recall_class_1": "Thấp",
@@ -284,9 +284,8 @@ Phân bố biến mục tiêu:
         "roc_auc": "0.7926",
         "ghi_chú": "MÔ HÌNH ĐƯỢC CHỌN - Tối ưu cho y tế"
     }
-}
 
-# LÝ DO CHỌN RANDOM FOREST
+## LÝ DO CHỌN RANDOM FOREST
 
     reasons_for_selection = {
     "1_Hiệu_năng_vượt_trội": "Recall = 0.84 - bắt đúng 84% người lười khám",
@@ -294,7 +293,7 @@ Phân bố biến mục tiêu:
     "3_Chống_overfitting": "max_depth=15, min_samples_leaf=2 giúp khái quát hóa tốt",
     "4_Triển_khai_nhẹ": "Đủ nhẹ để đóng gói vào Web/App, ít tài nguyên"
 
-# ỨNG DỤNG THỰC TẾ - TELEMEDICINE APP TÍCH HỢP AI
+## ỨNG DỤNG THỰC TẾ - TELEMEDICINE APP TÍCH HỢP AI
 
 
     
@@ -359,7 +358,7 @@ Phân bố biến mục tiêu:
         # Trong thực tế, đây sẽ là một mô hình NLP xử lý text
         return {"risk_level": "medium", "suggested_specialty": "Internal Medicine"}
 
-# KIẾN TRÚC HỆ THỐNG ĐỀ XUẤT
+## KIẾN TRÚC HỆ THỐNG ĐỀ XUẤT
 
 
     system_architecture = {
@@ -369,7 +368,7 @@ Phân bố biến mục tiêu:
     "4_Database": "MongoDB/PostgreSQL - Lưu profile bệnh nhân, lịch sử dự đoán",
     "5_Infrastructure": "Docker + Docker Compose - Đóng gói và triển khai"
 
-# HẠN CHẾ CỦA ĐỒ ÁN
+## HẠN CHẾ CỦA ĐỒ ÁN
 
     limitations = {
     "1_Thiên_lệch_mẫu": "Dữ liệu tập trung vào người trẻ (tuổi TB 29), tri thức đô thị",
@@ -377,7 +376,7 @@ Phân bố biến mục tiêu:
     "3_Chưa_tích_hợp_IoT": "Chưa đồng bộ dữ liệu từ thiết bị đeo thông minh",
     "4_Phạm_vi_địa_lý": "Chưa khảo sát người dân vùng nông thôn, vùng sâu vùng xa"
 
-# HƯỚNG PHÁT TRIỂN TƯƠNG LAI
+## HƯỚNG PHÁT TRIỂN TƯƠNG LAI
 
     future_directions = {
     "1_Mở_rộng_dữ_liệu": "Khảo sát thêm người cao tuổi, nông thôn, thu nhập thấp",
@@ -386,7 +385,7 @@ Phân bố biến mục tiêu:
     "4_A/B_Testing_Nudge": "Thử nghiệm các loại cú hích khác nhau để tối ưu chuyển đổi",
     "5_Mở_rộng_mô_hình": "Phát triển thành bài toán multi-class (dự đoán loại hình khám bệnh)"
 
-# KẾT LUẬN
+## KẾT LUẬN
 
 Đồ án đã thành công trong việc:
     1. Xác định 11 nhóm yếu tố ảnh hưởng đến hành vi khám sức khỏe chủ động,
@@ -404,7 +403,7 @@ Phân bố biến mục tiêu:
        tái cấu trúc sản phẩm, chính sách trợ giá, và phương thức truyền thông y khoa.
 
 
-# CHẠY HỆ THỐNG (MAIN)
+## CHẠY HỆ THỐNG (MAIN)
 
 
     if __name__ == "__main__":
