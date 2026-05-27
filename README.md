@@ -1,7 +1,6 @@
-## PHÂN TÍCH CÁC YẾU TỐ ẢNH HƯỞNG VÀ ỨNG DỤNG HỌC MÁY TRONG DỰ ĐOÁN HÀNH VI KHÁM SỨC KHỎE CHỦ ĐỘNG
+  ## PHÂN TÍCH CÁC YẾU TỐ ẢNH HƯỞNG VÀ ỨNG DỤNG HỌC MÁY TRONG DỰ ĐOÁN HÀNH VI KHÁM SỨC KHỎE CHỦ ĐỘNG
 
-# TỔNG QUAN DỰ ÁN
-
+ # TỔNG QUAN DỰ ÁN
 Mục tiêu:
    - Nhận diện các rào cản (tâm lý, kinh tế, thời gian, chất lượng dịch vụ) khiến người dân trì hoãn khám sức khỏe định kỳ
     
